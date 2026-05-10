@@ -1,0 +1,10 @@
+.enlaces {
+    display: flex;
+    gap: 40px;
+    list-style-type: none;
+}
+
+.enlaces a {
+    color: black;
+    text-decoration: none;
+}

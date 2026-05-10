@@ -1,0 +1,15 @@
+.titulo {
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: burlywood;
+}
+
+.titulo a {
+    text-decoration: none;
+}
+
+.titulo h1 {
+    color: black;
+}

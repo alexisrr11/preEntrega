@@ -1,0 +1,38 @@
+[
+    {
+      "id": 1,
+      "img": "https://aloeverahq.com/wp-content/uploads/2012/01/shutterstock_112140473.jpg", 
+      "nombre": "Aloe Vera",
+      "precio": 1500,
+      "descripcion": "Planta suculenta conocida por sus propiedades medicinales y facilidad de cuidado."
+    },
+    {
+      "id": 2,
+      "img": "https://www.jardineriaon.com/wp-content/uploads/2020/10/Nephrolepis_cordifolia.jpg", 
+      "nombre": "Helecho",
+      "precio": 1200,
+      "descripcion": "Planta ornamental de interior que necesita humedad y luz indirecta."
+    },
+    {
+      "id": 3,
+      "img": "https://c.pxhere.com/photos/89/50/cacti_cactuses_green_nature_plant-1092540.jpg!d", 
+      "nombre": "Cactus",
+      "precio": 800,
+      "descripcion": "Planta desértica muy resistente, ideal para lugares secos y soleados."
+    },
+    {
+      "id": 4,
+      "img": "https://boxflora.es/wp-content/uploads/2020/01/planta-poto-1325x800.jpeg", 
+      "nombre": "Poto",
+      "precio": 1700,
+      "descripcion": "Planta trepadora de interior, fácil de cuidar y muy decorativa."
+    },
+    {
+      "id": 5,
+      "img": "https://www.cumhuriyet.com.tr/Archive/2023/1/12/123009010-lavanta1.jpg", 
+      "nombre": "Lavanda",
+      "precio": 2000,
+      "descripcion": "Planta aromática que produce flores con un aroma relajante y atractivo."
+    }
+  ]
+  
