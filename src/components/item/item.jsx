@@ -5,7 +5,7 @@ function Item({ nombre, precio, descripcion, img, children }) {
     <article className="item">
       <img src={img} alt={`imagen de ${nombre}`} />
       <h3>{nombre}</h3>
-      <p>{descripcion}</p>
+      <h4>{descripcion}</h4>
       <p>${precio}</p>
       {children}
     </article>

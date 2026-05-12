@@ -9,10 +9,10 @@
 
 .footer a {
     scroll-behavior: smooth;
+    list-style-type: none;
+    text-decoration: none;
 }
 
 .footer li {
     color: black;
-    list-style-type: none;
-    text-decoration: none;
 }

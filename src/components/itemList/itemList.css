@@ -9,3 +9,9 @@
 .products-container a {
     text-decoration: none;
 }
+
+@media (max-width: 768px) {
+  .products-container {
+    grid-template-columns: 1fr;
+  }
+}

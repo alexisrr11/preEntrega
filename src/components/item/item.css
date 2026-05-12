@@ -2,10 +2,15 @@
   padding: 15px 50px;
   border: 2px solid burlywood;
   border-radius: 20px;
-  color: white;
+  color: burlywood;
+  font-weight: bold;
 }
 .item img{
     border-radius: 5px;
     height: 150px;
     width: 200px;
+}
+
+.item h4 {
+  font-weight: initial;
 }
