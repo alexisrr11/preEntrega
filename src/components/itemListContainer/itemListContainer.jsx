@@ -1,5 +1,6 @@
 import "./itemListContainer.css"
 import { useState, useEffect } from "react"
+import { getProducts } from "../../service/ProductService";
 import ItemList from "../itemList/itemList";
 
 function ItemListContainer() {
@@ -7,8 +8,8 @@ function ItemListContainer() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("/data/products.json")
-        .then(res => res.json())
+        setLoading(true);
+        getProducts()
         .then((data) => setProducts(data))
         .catch((error) => console.error(error))
         .finally(() => {
