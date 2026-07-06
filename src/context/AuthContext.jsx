@@ -1,50 +1,84 @@
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useState } from "react";
+
 import {
-     onAuthStateChanged,
-     singInWithEmailAndPassword,
-     singOut
-} from 'firebase/auth';
-import { auth } from '../firebase/config'
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 
-const AuthContext = createContext();
+import { auth } from "../firebase/config";
 
-export const UseAuth = () => {
-    const context = useContext(AuthContext);
-    if(!context){
-        throw new Error ("UseAuth debe usarse dentro de AuthPovider");
+const AuthContext = createContext(null);
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+
+  if (!context) {
+    throw new Error("useAuth debe usarse dentro de AuthProvider");
+  }
+
+  return context;
+};
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (firebaseUser) => {
+        setUser(firebaseUser);
+        setLoading(false);
+      },
+      (error) => {
+        console.error("Error en onAuthStateChanged:", error);
+        setUser(null);
+        setLoading(false);
+      }
+    );
+
+    return unsubscribe;
+  }, []);
+
+  const login = async (email, password) => {
+    setLoading(true);
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      setUser(userCredential.user);
+      setLoading(false);
+
+      return userCredential;
+    } catch (error) {
+      setUser(null);
+      setLoading(false);
+      throw error;
     }
-    return context;
-}
+  };
 
-export const AuthProvider = ({children}) => {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+  const logout = async () => {
+    try {
+      setLoading(true);
 
-    useEffect(() => {
-        const unSubscribe = onAuthStateChanged(AuthContext, (firebaseUser) => {
-            setUser(firebaseUser);
-            setLoading(false);
-        });
-        return unSubscribe
-    }, []);
+      await signOut(auth);
 
-    const login = (email, password) => {
-        return singInWithEmailAndPassword(auth, email, password)
-    };
-
-    const logout = async () => {
-        try {
-            await singOut(auth);
-        } catch (error) {
-            console.error("Error al cerrar sesiín", error)
-        }
-    };
+      setUser(null);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error al cerrar sesión", error);
+      setLoading(false);
+    }
+  };
 
   return (
-    <>
-      <AuthContext.Provider value={{user, loading, login, logout}}>
-        {children}
-      </AuthContext.Provider>
-    </>
-  )
-}
+    <AuthContext.Provider value={{ user, loading, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};

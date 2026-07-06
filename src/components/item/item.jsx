@@ -1,15 +1,15 @@
-import "./item.css"
+import "./item.css";
 
-function Item({ nombre, precio, descripcion, img, children }) {
+function Item({ name, price, description, image, children }) {
   return (
     <article className="item">
-      <img src={img} alt={`imagen de ${nombre}`} />
-      <h3>{nombre}</h3>
-      <h4>{descripcion}</h4>
-      <p>${precio}</p>
+      <img src={image} alt={`imagen de ${name}`} />
+      <h3>{name}</h3>
+      <h4>{description}</h4>
+      <p>${price}</p>
       {children}
     </article>
   );
 }
 
-export default Item
+export default Item;

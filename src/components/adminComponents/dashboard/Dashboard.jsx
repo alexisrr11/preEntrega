@@ -1,44 +1,70 @@
 import { Link, Navigate } from "react-router-dom";
-import { UseAuth } from "../../../context/AuthContext";
+import { useAuth } from "../../../context/AuthContext";
 import "./Dashboard.css";
 
 export const Dashboard = () => {
-    const { Loguot } = UseAuth();
-    return (
-        <div className="">
-            <header className="">
-                <h2>Panel de Administración</h2>
-                <div className="">
-                    <Link className="" to="/">
-                        Volver a la tienda
-                    </Link>
-                    <button>Cerrar Sesión</button>
-                </div>
-            </header>
-            <section>
-                <h3>Acciones Rapidas</h3>
-                <div className="action-grid">
-                    <Link to="/admin/products/new" className="action-card">
-                        ➕ Cargar
-                    </Link>
+  const { user, loading, logout } = useAuth();
 
-                    <Link to="#">
-                        ✏️ Modificar
-                    </Link>
+  const handleLogout = async () => {
+    const confirmed = window.confirm("¿Seguro que querés cerrar sesión?");
 
-                    <Link to="#">
-                        Eliminar
-                    </Link>
-                </div>
-            </section>
-            <section>
-                <h3>Ayuda</h3>
-                <p>
-                    Desde el panel podes acceder a la tienda
-                </p>
-            </section>
+    if (!confirmed) return;
+
+    await logout();
+  };
+
+  if (loading) {
+    return <p>Cargando...</p>;
+  }
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return (
+    <div className="dashboard">
+      <header className="dashboard-header">
+        <div>
+          <h2>Panel de Administración</h2>
+          <p>{user.email}</p>
         </div>
-    )
-}
 
+        <div className="dashboard-actions">
+          <Link className="dashboard-link" to="/">
+            Volver a la tienda
+          </Link>
 
+          <button type="button" onClick={handleLogout}>
+            Cerrar sesión
+          </button>
+        </div>
+      </header>
+
+      <section>
+        <h3>Acciones rápidas</h3>
+
+        <div className="action-grid">
+          <Link to="/admin/products/new" className="action-card">
+            ➕ Cargar producto
+          </Link>
+
+          <Link to="/admin/products" className="action-card">
+            ✏️ Modificar productos
+          </Link>
+
+          <Link to="/admin/products" className="action-card">
+            🗑️ Eliminar productos
+          </Link>
+        </div>
+      </section>
+
+      <section>
+        <h3>Ayuda</h3>
+
+        <p>
+          Desde este panel podés administrar los productos de la tienda.
+        </p>
+      </section>
+    </div>
+  );
+};

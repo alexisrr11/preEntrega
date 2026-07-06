@@ -4,9 +4,11 @@ import { useAuth } from "../../context/AuthContext";
 export const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
 
-  if (loading) return <p>Cargando...</p>; // 🔥 CLAVE: esperamos a saber si hay usuario autenticado antes de redirigir
+  console.log("ProtectedRoute:", { user, loading });
 
-  if (!user) return <Navigate to="/admin/login" />;
+  if (loading) return <p>Cargando...</p>;
+
+  if (!user) return <Navigate to="/admin/login" replace />;
 
   return children;
 };
