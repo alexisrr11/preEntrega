@@ -40,13 +40,13 @@ export const Dashboard = () => {
             ➕ Cargar producto
           </Link>
 
-          <Link to="/admin/products" className="action-card">
+          <span className="action-card action-card-disabled">
             ✏️ Modificar productos
-          </Link>
+          </span>
 
-          <Link to="/admin/products" className="action-card">
+          <span className="action-card action-card-disabled">
             🗑️ Eliminar productos
-          </Link>
+          </span>
         </div>
       </section>
 
