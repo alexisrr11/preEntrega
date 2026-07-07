@@ -24,7 +24,7 @@ export const Login = () => {
       //Viene del contexto
       await login(formData.email, formData.password);
       console.log("Login exitoso");
-      navigate("/admin", { replace: true });
+      navigate("/admin/dashboard", { replace: true });
 
 
     } catch (error) {

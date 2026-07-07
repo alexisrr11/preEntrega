@@ -1,9 +1,9 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 import "./Dashboard.css";
 
 export const Dashboard = () => {
-  const { user, loading, logout } = useAuth();
+  const { user, logout } = useAuth();
 
   const handleLogout = async () => {
     const confirmed = window.confirm("¿Seguro que querés cerrar sesión?");
@@ -13,20 +13,12 @@ export const Dashboard = () => {
     await logout();
   };
 
-  if (loading) {
-    return <p>Cargando...</p>;
-  }
-
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
-
   return (
     <div className="dashboard">
       <header className="dashboard-header">
         <div>
           <h2>Panel de Administración</h2>
-          <p>{user.email}</p>
+          <p>{user?.email}</p>
         </div>
 
         <div className="dashboard-actions">
@@ -61,9 +53,7 @@ export const Dashboard = () => {
       <section>
         <h3>Ayuda</h3>
 
-        <p>
-          Desde este panel podés administrar los productos de la tienda.
-        </p>
+        <p>Desde este panel podés administrar los productos de la tienda.</p>
       </section>
     </div>
   );

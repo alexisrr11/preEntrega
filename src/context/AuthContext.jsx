@@ -25,54 +25,36 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(
-      auth,
-      (firebaseUser) => {
-        setUser(firebaseUser);
-        setLoading(false);
-      },
-      (error) => {
-        console.error("Error en onAuthStateChanged:", error);
-        setUser(null);
-        setLoading(false);
-      }
-    );
+    console.log("AuthProvider montado");
 
-    return unsubscribe;
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      console.log("Firebase user:", firebaseUser);
+
+      setUser(firebaseUser);
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
   }, []);
 
   const login = async (email, password) => {
-    setLoading(true);
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+    setUser(userCredential.user);
 
-      setUser(userCredential.user);
-      setLoading(false);
-
-      return userCredential;
-    } catch (error) {
-      setUser(null);
-      setLoading(false);
-      throw error;
-    }
+    return userCredential;
   };
 
   const logout = async () => {
     try {
-      setLoading(true);
-
       await signOut(auth);
-
       setUser(null);
-      setLoading(false);
     } catch (error) {
       console.error("Error al cerrar sesión", error);
-      setLoading(false);
     }
   };
 
